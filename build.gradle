@@ -7,7 +7,21 @@ plugins {
 ext {
     set('springBootAdminVersion', "3.2.2")
 }
+java {
+    sourceCompatibility = '21'
+}
 
+tasks.withType(JavaCompile) {
+    options.compilerArgs += "--enable-preview"
+}
+
+tasks.withType(Test) {
+    jvmArgs += "--enable-preview"
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs += '--enable-preview'
+}
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
@@ -20,11 +34,18 @@ dependencies {
 
     implementation 'de.codecentric:spring-boot-admin-starter-server'
     implementation 'de.codecentric:spring-boot-admin-server-ui'
+
+    implementation 'de.codecentric:spring-boot-admin-client'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework:spring-web:6.1.4'
+
     implementation 'org.springframework.boot:spring-boot-starter-security:3.2.3'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.security:spring-security-web:6.2.2'
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.2.3'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:3.2.3'
     // https://mvnrepository.com/artifact/org.springframework.security/spring-security-config
     implementation 'org.springframework.security:spring-security-config:6.2.2'
+    implementation 'org.jolokia:jolokia-client-java:2.0.2'
+    implementation 'org.jolokia:jolokia-support-spring:2.0.2'
 
 
     testImplementation "com.sun.xml.ws:jaxws-rt:4.0.2"
